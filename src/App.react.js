@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Redirect } from 'react-router';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   ForgotPasswordPage,
@@ -13,6 +14,7 @@ import {
   Empty,
   Email,
   ProfilePage,
+  Rooms
 } from "./pages";
 
 import HomePage from "./HomePage.react";
@@ -28,14 +30,17 @@ import BlogPage from "./components/BlogPage.react";
 
 import "tabler-react/dist/Tabler.css";
 
-type Props = {||};
 
-function App(props: Props): React.Node {
+function App(props) {
   return (
     <React.StrictMode>
       <Router>
         <Switch>
-          <Route exact path="/" component={HomePage} />
+          <Route exact path="/" render={() => (
+              <Redirect to="/login"/>
+          )}/>
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/home" component={HomePage} />
           <Route exact path="/400" component={Error400} />
           <Route exact path="/401" component={Error401} />
           <Route exact path="/403" component={Error403} />
@@ -51,12 +56,12 @@ function App(props: Props): React.Node {
           <Route exact path="/forgot-password" component={ForgotPasswordPage} />
           <Route exact path="/gallery" component={GalleryPage} />
           <Route exact path="/icons" component={IconPage} />
-          <Route exact path="/login" component={LoginPage} />
           <Route exact path="/maps" component={MapCardsPage} />
           <Route exact path="/pricing-cards" component={PricingCardsPage} />
           <Route exact path="/profile" component={ProfilePage} />
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/store" component={StoreCardsPage} />
+          <Route exact path="/rooms" component={Rooms} />
           <Route component={Error404} />
         </Switch>
       </Router>

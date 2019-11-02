@@ -43,7 +43,7 @@ type navItem = {|
 const navBarItems: Array<navItem> = [
   {
     value: "Home",
-    to: "/",
+    to: "/home",
     icon: "home",
     LinkComponent: withRouter(NavLink),
     useExact: true,
@@ -126,11 +126,18 @@ const navBarItems: Array<navItem> = [
         ? "https://tabler.github.io/tabler-react/documentation"
         : "/documentation",
   },
+  {
+    value: "Patalpos",
+    to: "/rooms",
+    icon: "home",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
 ];
 
 const accountDropdownProps = {
   avatarURL: "./demo/faces/female/25.jpg",
-  name: "Jane Pearson",
+  name: "Jonė Jonaitė",
   description: "Administrator",
   options: [
     { icon: "user", value: "Profile" },
@@ -190,22 +197,8 @@ class SiteWrapper extends React.Component<Props, State> {
       <Site.Wrapper
         headerProps={{
           href: "/",
-          alt: "Tabler React",
-          imageURL: "./demo/brand/tabler.svg",
-          navItems: (
-            <Nav.Item type="div" className="d-none d-md-flex">
-              <Button
-                href="https://github.com/tabler/tabler-react"
-                target="_blank"
-                outline
-                size="sm"
-                RootComponent="a"
-                color="primary"
-              >
-                Source code
-              </Button>
-            </Nav.Item>
-          ),
+          alt: "C-- Hospital",
+          //imageURL: "./demo/brand/tabler.svg",
           notificationsTray: {
             notificationsObjects,
             markAllAsRead: () =>
