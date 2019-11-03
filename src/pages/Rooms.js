@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import { Page, Grid, Form, Table, Card, Button } from "tabler-react";
+import { Page, Grid, Form, Table, Card, Button, Text } from "tabler-react";
 
 import Modal from "../components/Modal";
 
@@ -12,19 +12,25 @@ import SiteWrapper from "../SiteWrapper.react";
 const roomsData = [
     { Number: 1, Area: 49, TypeId: 1, TypeName: "Palata", Size: 6 },
     { Number: 2, Area: 11, TypeId: 2, TypeName: "Kabinetas", Size: 1 },
-    { Number: 3, Area: 12, TypeId: 3, TypeName: "Procedūrinis kabinetas", Size: 2 },
+    { Number: 3, Area: 12, TypeId: 3, TypeName: "Procedūrinis k.", Size: 2 },
     { Number: 4, Area: 45, TypeId: 1, TypeName: "Palata", Size: 4 },
     { Number: 5, Area: 33, TypeId: 1, TypeName: "Palata", Size: 4 },
-    { Number: 6, Area: 66, TypeId: 3, TypeName: "Procedūrinis kabinetas", Size: 2 },
+    { Number: 6, Area: 66, TypeId: 3, TypeName: "Procedūrinis k.", Size: 2 },
     { Number: 7, Area: 69, TypeId: 1, TypeName: "Palata", Size: 8},
     { Number: 8, Area: 41, TypeId: 2, TypeName: "Kabinetas", Size: 1 },
-    { Number: 9, Area: 22, TypeId: 3, TypeName: "Procedūrinis kabinetas", Size: 2 },
+    { Number: 9, Area: 22, TypeId: 3, TypeName: "Procedūrinis k.", Size: 2 },
     { Number: 10, Area: 53, TypeId: 2, TypeName: "Kabinetas", Size: 1 }
 ];
 
 function RoomsPage() {
   const [showAdd, setShowAdd] = useState(false);
-  const [showRemove, setShowRemove] = useState(false);
+
+  const removeModals = [];
+  roomsData.forEach(room => {
+    const [showRemove, setShowRemove] = useState(false);
+    removeModals[room.Number] = {showRemove, setShowRemove};
+  });
+  
   return (
     <SiteWrapper>
       <Page.Content>
@@ -108,12 +114,20 @@ function RoomsPage() {
                         <Button color="gray" disabled={room.TypeId !== 3}>Priskirti procedūrai</Button>
                         <Button color="gray" disabled={room.TypeId !== 2 && room.TypeId !== 3}>Priskirti gydytojui</Button>
                         <Button color="warning">Redaguoti</Button>
-                        <Button color="danger" onClick={() => setShowRemove(true)}>Šalinti</Button>
-                        <Modal 
-                          show={showRemove} 
-                          handleClose={() => setShowRemove(false)} 
-                          title='Kabineto šalinimas'
-                          bodyContent='asdasdasd'/>
+                        <Button color="danger" onClick={() => removeModals[room.Number].setShowRemove(true)}>Šalinti</Button>
+                        <Modal
+                          show={removeModals[room.Number].showRemove} 
+                          handleClose={() => removeModals[room.Number].setShowRemove(false)} 
+                          title="Kabineto šalinimas"
+                          bodyContent={
+                            <Text style={{fontSize: "initial", textAlign: "center"}}>
+                              Ar tikrai norite pašalinti {room.Number} patalpą?
+                            </Text>
+                          }
+                          actions={[
+                            { label:"Atšaukti", onClick:() => removeModals[room.Number].setShowRemove(false) }, 
+                            { label:"Patvirtinti", color:"primary", onClick:() => removeModals[room.Number].setShowRemove(false) }
+                          ]} />
                       </Button.List>
                     </Table.Col>
                   </Table.Row>
