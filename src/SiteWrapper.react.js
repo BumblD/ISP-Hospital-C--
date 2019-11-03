@@ -5,7 +5,6 @@ import { NavLink, withRouter } from "react-router-dom";
 
 import {
   Site,
-  Nav,
   Grid,
   List,
   Button,
