@@ -15,3 +15,7 @@
     font-size: initial;
     text-align: center;
 }
+
+.procedure-type {
+    display: flex;
+}
