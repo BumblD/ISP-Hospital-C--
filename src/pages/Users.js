@@ -57,7 +57,7 @@ function Doctor(user){
     }
 }
 
-function RoomsPage() {
+function UsersPage() {
     const [showAdd, setShowAdd] = useState(false);
 
     const removeModals = [];
@@ -298,4 +298,4 @@ function RoomsPage() {
     );
 }
 
-export default RoomsPage;
+export default UsersPage;
