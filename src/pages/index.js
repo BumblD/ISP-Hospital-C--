@@ -11,6 +11,7 @@ import Error503 from "./503.react";
 import Email from "./Email.react";
 import ProfilePage from "./ProfilePage.react";
 import Rooms from "./Rooms";
+import Users from "./Users";
 
 export {
   ForgotPasswordPage,
@@ -26,4 +27,5 @@ export {
   Email,
   ProfilePage,
   Rooms,
+  Users
 };
