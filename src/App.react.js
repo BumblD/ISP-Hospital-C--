@@ -14,7 +14,8 @@ import {
   Empty,
   Email,
   ProfilePage,
-  Rooms
+  Rooms,
+  Users
 } from "./pages";
 
 import HomePage from "./HomePage.react";
@@ -62,6 +63,7 @@ function App(props) {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/store" component={StoreCardsPage} />
           <Route exact path="/rooms" component={Rooms} />
+          <Route exact path="/users" component={Users} />
           <Route component={Error404} />
         </Switch>
       </Router>

@@ -132,6 +132,13 @@ const navBarItems: Array<navItem> = [
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
+  {
+    value: "Vartotojai",
+    to: "/users",
+    icon: "user",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
 ];
 
 const accountDropdownProps = {
