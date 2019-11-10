@@ -15,6 +15,13 @@ import {
   Email,
   ProfilePage,
   Rooms,
+  Visits,
+  NewVisit,
+  ListVisit,
+  FilterVisit,
+  FilteredVisit,
+  EditVisit,
+  DetailsVisit,
   Users,
   Healthcare
 } from "./pages";
@@ -31,6 +38,7 @@ import MapCardsPage from "./components/MapCardsPage.react";
 import BlogPage from "./components/BlogPage.react";
 
 import "tabler-react/dist/Tabler.css";
+import { visible } from "ansi-colors";
 
 
 function App(props) {
@@ -64,6 +72,13 @@ function App(props) {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/store" component={StoreCardsPage} />
           <Route exact path="/rooms" component={Rooms} />
+          <Route exact path="/visits" component={Visits} />
+          <Route exact path="/NewVisit" component={NewVisit} />
+          <Route exact path="/ListVisit" component={ListVisit} />
+          <Route exact path="/FilterVisit" component={FilterVisit} />
+          <Route exact path="/FilteredVisit" component={FilteredVisit} />
+          <Route exact path="/EditVisit" component={EditVisit} />
+          <Route exact path="/DetailsVisit" component={DetailsVisit} />
           <Route exact path="/users" component={Users} />
           <Route exact path="/healthcare" component={Healthcare} />
           <Route component={Error404} />

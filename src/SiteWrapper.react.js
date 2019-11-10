@@ -133,6 +133,15 @@ const navBarItems: Array<navItem> = [
     useExact: true,
   },
   {
+    value: "Vizitai",
+    to: "/visits",
+    icon: "file-text",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+    subItems: [
+      { value: "Naujas vizitas", to: "/NewVisit", LinkComponent: withRouter(NavLink) },
+    ],
+  },
     value: "Vartotojai",
     to: "/users",
     icon: "user",

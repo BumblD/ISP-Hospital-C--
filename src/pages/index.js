@@ -11,6 +11,13 @@ import Error503 from "./503.react";
 import Email from "./Email.react";
 import ProfilePage from "./ProfilePage.react";
 import Rooms from "./Rooms";
+import Visits from "./Visits";
+import NewVisit from "./NewVisit";
+import ListVisit from "./ListVisit";
+import FilterVisit from "./FilterVisit";
+import FilteredVisit from "./FilteredVisit";
+import EditVisit from "./EditVisit";
+import DetailsVisit from "./DetailsVisit";
 import Users from "./Users";
 import Healthcare from "./Healthcare";
 
@@ -28,6 +35,13 @@ export {
   Email,
   ProfilePage,
   Rooms,
+  Visits,
+  NewVisit,
+  ListVisit,
+  FilterVisit,
+  FilteredVisit,
+  EditVisit,
+  DetailsVisit
   Users,
   Healthcare
 };
