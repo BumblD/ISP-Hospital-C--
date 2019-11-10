@@ -12,6 +12,7 @@ import Email from "./Email.react";
 import ProfilePage from "./ProfilePage.react";
 import Rooms from "./Rooms";
 import Users from "./Users";
+import Healthcare from "./Healthcare";
 
 export {
   ForgotPasswordPage,
@@ -27,5 +28,6 @@ export {
   Email,
   ProfilePage,
   Rooms,
-  Users
+  Users,
+  Healthcare
 };
