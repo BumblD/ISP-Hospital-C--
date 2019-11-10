@@ -41,7 +41,7 @@ export {
   FilterVisit,
   FilteredVisit,
   EditVisit,
-  DetailsVisit
+  DetailsVisit,
   Users,
   Healthcare
 };
