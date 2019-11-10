@@ -142,6 +142,19 @@ const navBarItems: Array<navItem> = [
       { value: "Naujas vizitas", to: "/NewVisit", LinkComponent: withRouter(NavLink) },
     ],
   },
+    value: "Vartotojai",
+    to: "/users",
+    icon: "user",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
+    value: "Gydymas",
+    to: "/healthcare",
+    icon: "file-text",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
 ];
 
 const accountDropdownProps = {

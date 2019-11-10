@@ -1,0 +1,21 @@
+.form-label {
+    text-align: start;
+}
+
+.rooms-type-select {
+    display: flex;
+     margin: 0em 0.7em 1em 0em;
+}
+
+.add-room-button {
+    margin-left: auto;
+}
+
+.remove-room-text {
+    font-size: initial;
+    text-align: center;
+}
+
+.procedure-type {
+    display: flex;
+}

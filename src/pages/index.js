@@ -18,6 +18,8 @@ import FilterVisit from "./FilterVisit";
 import FilteredVisit from "./FilteredVisit";
 import EditVisit from "./EditVisit";
 import DetailsVisit from "./DetailsVisit";
+import Users from "./Users";
+import Healthcare from "./Healthcare";
 
 export {
   ForgotPasswordPage,
@@ -40,4 +42,6 @@ export {
   FilteredVisit,
   EditVisit,
   DetailsVisit
+  Users,
+  Healthcare
 };
