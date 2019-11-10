@@ -139,6 +139,13 @@ const navBarItems: Array<navItem> = [
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
+  {
+    value: "Gydymas",
+    to: "/healthcare",
+    icon: "file-text",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
 ];
 
 const accountDropdownProps = {
