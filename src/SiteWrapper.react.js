@@ -132,6 +132,13 @@ const navBarItems: Array<navItem> = [
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
+  {
+    value: "Vizitai",
+    to: "/visits",
+    icon: "file-text",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
 ];
 
 const accountDropdownProps = {

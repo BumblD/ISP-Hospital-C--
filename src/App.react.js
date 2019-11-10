@@ -14,7 +14,8 @@ import {
   Empty,
   Email,
   ProfilePage,
-  Rooms
+  Rooms,
+  Visits
 } from "./pages";
 
 import HomePage from "./HomePage.react";
@@ -29,6 +30,7 @@ import MapCardsPage from "./components/MapCardsPage.react";
 import BlogPage from "./components/BlogPage.react";
 
 import "tabler-react/dist/Tabler.css";
+import { visible } from "ansi-colors";
 
 
 function App(props) {
@@ -62,6 +64,7 @@ function App(props) {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/store" component={StoreCardsPage} />
           <Route exact path="/rooms" component={Rooms} />
+          <Route exact path="/visits" component={Visits} />
           <Route component={Error404} />
         </Switch>
       </Router>
