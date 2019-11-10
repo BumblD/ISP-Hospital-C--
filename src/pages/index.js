@@ -12,6 +12,12 @@ import Email from "./Email.react";
 import ProfilePage from "./ProfilePage.react";
 import Rooms from "./Rooms";
 import Visits from "./Visits";
+import NewVisit from "./NewVisit";
+import ListVisit from "./ListVisit";
+import FilterVisit from "./FilterVisit";
+import FilteredVisit from "./FilteredVisit";
+import EditVisit from "./EditVisit";
+import DetailsVisit from "./DetailsVisit";
 
 export {
   ForgotPasswordPage,
@@ -28,4 +34,10 @@ export {
   ProfilePage,
   Rooms,
   Visits,
+  NewVisit,
+  ListVisit,
+  FilterVisit,
+  FilteredVisit,
+  EditVisit,
+  DetailsVisit
 };

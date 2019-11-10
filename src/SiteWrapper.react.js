@@ -138,6 +138,9 @@ const navBarItems: Array<navItem> = [
     icon: "file-text",
     LinkComponent: withRouter(NavLink),
     useExact: true,
+    subItems: [
+      { value: "Naujas vizitas", to: "/NewVisit", LinkComponent: withRouter(NavLink) },
+    ],
   },
 ];
 

@@ -15,7 +15,13 @@ import {
   Email,
   ProfilePage,
   Rooms,
-  Visits
+  Visits,
+  NewVisit,
+  ListVisit,
+  FilterVisit,
+  FilteredVisit,
+  EditVisit,
+  DetailsVisit,
 } from "./pages";
 
 import HomePage from "./HomePage.react";
@@ -65,6 +71,12 @@ function App(props) {
           <Route exact path="/store" component={StoreCardsPage} />
           <Route exact path="/rooms" component={Rooms} />
           <Route exact path="/visits" component={Visits} />
+          <Route exact path="/NewVisit" component={NewVisit} />
+          <Route exact path="/ListVisit" component={ListVisit} />
+          <Route exact path="/FilterVisit" component={FilterVisit} />
+          <Route exact path="/FilteredVisit" component={FilteredVisit} />
+          <Route exact path="/EditVisit" component={EditVisit} />
+          <Route exact path="/DetailsVisit" component={DetailsVisit} />
           <Route component={Error404} />
         </Switch>
       </Router>
