@@ -55,7 +55,7 @@ function ListVisitPage() {
                 href="/NewVisit"
                 RootComponent="a"
                 >
-                    Vizitų paieška
+                    Naujas vizitas
             </Button>
         </div>
       </div>
