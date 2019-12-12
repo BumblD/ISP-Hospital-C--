@@ -30,10 +30,13 @@ namespace HospitalBackEnd.Controllers
             cmd.CommandText = @"SELECT
                                     gydytojai.id,
                                     asmenine_info.vardas,
-                                    asmenine_info.pavarde
+                                    asmenine_info.pavarde,
+                                    GYDYTOJO_TIPAS.name AS specializacija
                                 FROM gydytojai
                                     LEFT JOIN personalo_darbuotojai ON gydytojai.fk_PERSONALO_DARBUOTOJAStabelio_numeris=personalo_darbuotojai.tabelio_numeris
-                                    LEFT JOIN asmenine_info ON personalo_darbuotojai.fk_ASMENINE_INFOasmens_kodas=asmenine_info.asmens_kodas";
+                                    LEFT JOIN asmenine_info ON personalo_darbuotojai.fk_ASMENINE_INFOasmens_kodas=asmenine_info.asmens_kodas
+                                    LEFT JOIN GYDYTOJO_TIPAS ON gydytojai.specializacija=GYDYTOJO_TIPAS.id";
+
 
             using (var reader = cmd.ExecuteReader())
             {
@@ -44,7 +47,7 @@ namespace HospitalBackEnd.Controllers
                         ID = Convert.ToInt32(reader["id"]),
                         Vardas = Convert.ToString(reader["vardas"]),
                         Pavarde = Convert.ToString(reader["pavarde"]),
-                        Specializacija = ""
+                        Specializacija = Convert.ToString(reader["specializacija"])
                     });
                 }
             }

@@ -14,6 +14,8 @@ namespace HospitalBackEnd.Models
         public string Nusiskundimas { get; set; }
         public bool Patvirtinimas { get; set; }
         public string Gydytojas { get; set; }
+        public int GydytojasID { get; set; }
         public string Pacientas { get; set; }
+        public int PacientasID { get; set; }
     }
 }
