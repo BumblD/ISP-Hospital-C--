@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace HospitalBackEnd.Models
 {
+    
     public class VizitasViewModel
     {
         public int ID { get; set; }
