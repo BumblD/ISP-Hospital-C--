@@ -20,6 +20,18 @@ import EditVisit from "./EditVisit";
 import DetailsVisit from "./DetailsVisit";
 import Users from "./Users";
 import Healthcare from "./Healthcare";
+import Research from "./Research";
+import Procedures from "./Procedures";
+import Prescriptions from "./Prescriptions";
+import Dispatch from "./Dispatch";
+import DetailsDispatch from "./DetailsDispatch";
+import DetailsPrescription from "./DetailsPrescription";
+import DetailsProcedure from "./DetailsProcedure";
+import DetailsResearch from "./DetailsResearch";
+import NewDispatch from "./NewDispatch";
+import NewPrescription from "./NewPrescription";
+import NewProcedure from "./NewProcedure";
+import NewResearch from "./NewResearch";
 
 export {
   ForgotPasswordPage,
@@ -43,5 +55,17 @@ export {
   EditVisit,
   DetailsVisit,
   Users,
-  Healthcare
+  Healthcare,
+  Research,
+  Procedures,
+  Prescriptions,
+  Dispatch,
+  DetailsDispatch,
+  DetailsPrescription,
+  DetailsProcedure,
+  DetailsResearch,
+  NewDispatch,
+  NewPrescription,
+  NewProcedure,
+  NewResearch
 };
