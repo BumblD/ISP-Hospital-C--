@@ -105,8 +105,8 @@ namespace HospitalBackEnd.Controllers
             }
         }
 
-        [HttpGet("{begin}/{end}/{speciality}")]
-        public IActionResult GetAllEmptyVisits(DateTime begin, DateTime end, int speciality)
+        [HttpGet("{begin}/{end}/{doctorID}")]
+        public IActionResult GetAllEmptyVisits(DateTime begin, DateTime end, int doctorID)
         {
             List<VizitasViewModel> visits = new List<VizitasViewModel>();
             try
@@ -114,12 +114,11 @@ namespace HospitalBackEnd.Controllers
                 Db.Connection.Open();
                 var cmd = Db.Connection.CreateCommand() as MySqlCommand;
                 cmd.CommandText = @"SELECT *
-                                FROM grafikai
-                                    LEFT JOIN gydytojai ON grafikai.fk_GYDYTOJASid=gydytojai.id
-                                    WHERE gydytojai.specializacija=@Speciality
+                                    FROM grafikai
+                                    WHERE fk_GYDYTOJASid=@GydytojasID
                                         AND grafikai.data>=@StartDate
                                         AND grafikai.data<=@EndDate";
-                cmd.Parameters.AddWithValue("@Speciality", speciality);
+                cmd.Parameters.AddWithValue("@GydytojasID", doctorID);
                 cmd.Parameters.AddWithValue("@StartDate", begin);
                 cmd.Parameters.AddWithValue("@EndDate", end);
 
@@ -130,7 +129,6 @@ namespace HospitalBackEnd.Controllers
                         int startTime = Convert.ToInt32(reader["pradzia_val"]);
                         int endTime = Convert.ToInt32(reader["pabaiga_val"]);
                         DateTime visitDate = Convert.ToDateTime(reader["data"]);
-                        int doctorID = Convert.ToInt32(reader["fk_GYDYTOJASid"]);
                         for (int i = startTime; i < endTime; i++)
                         {
                             visits.Add(new VizitasViewModel()
@@ -170,7 +168,8 @@ namespace HospitalBackEnd.Controllers
 
                 cmd.CommandText = @"SELECT *
                                 FROM vizitai
-                                WHERE data>=@StartDate
+                                WHERE fk_GYDYTOJASid=@GydytojasID
+                                    AND data>=@StartDate
                                     AND data<=@EndDate";
 
                 using (var reader = cmd.ExecuteReader())
@@ -192,7 +191,7 @@ namespace HospitalBackEnd.Controllers
                 }
                 foreach (var visit in selectedVisits)
                 {
-                    visits.RemoveAll(item => (item.GydytojasID == visit.GydytojasID && item.Data == visit.Data && item.Laikas_val == visit.Laikas_val && item.Laikas_min == visit.Laikas_min));
+                    visits.RemoveAll(item => (item.Data == visit.Data && item.Laikas_val == visit.Laikas_val && item.Laikas_min == visit.Laikas_min));
                 }
 
 
