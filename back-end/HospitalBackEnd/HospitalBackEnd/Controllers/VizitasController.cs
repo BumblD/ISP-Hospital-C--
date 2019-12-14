@@ -339,7 +339,104 @@ namespace HospitalBackEnd.Controllers
         [HttpGet("{id}/{role}")]
         public IActionResult GetVisitByUser(int id, int role)
         {
-            return Ok("GetVisitByUser: empty response.");
+            List<VizitasViewModel> visits = new List<VizitasViewModel>();
+            try
+            { 
+                Db.Connection.Open();
+                var cmd = Db.Connection.CreateCommand() as MySqlCommand;
+                if (role == 1)
+                {
+                    cmd.CommandText = @"SELECT 
+                                    vizitai.id,
+                                    data,
+                                    laikas_val,
+                                    laikas_min,
+                                    nusiskundimas,
+                                    patvirtinimas,
+                                    CONCAT(gyd.vardas, ' ', gyd.pavarde) AS gydytojas,
+                                    CONCAT(pac.vardas, ' ', pac.pavarde) AS pacientas,
+                                    vizitai.fk_GYDYTOJASid AS gydytojasid,
+                                    vizitai.fk_PACIENTASid AS pacientasid
+                                FROM vizitai
+                                    LEFT JOIN gydytojai ON vizitai.fk_GYDYTOJASid=gydytojai.id
+                                    LEFT JOIN personalo_darbuotojai ON gydytojai.fk_PERSONALO_DARBUOTOJAstabelio_numeris=personalo_darbuotojai.tabelio_numeris
+                                    LEFT JOIN asmenine_info gyd ON personalo_darbuotojai.fk_ASMENINE_INFOasmens_kodas=gyd.asmens_kodas
+                                    LEFT JOIN pacientai ON vizitai.fk_PACIENTASid=pacientai.id
+                                    LEFT JOIN asmenine_info pac ON pacientai.fk_ASMENINE_INFOasmens_kodas=pac.asmens_kodas";
+                }
+                else if(role == 2)
+                {
+                    cmd.CommandText = @"SELECT 
+                                    vizitai.id,
+                                    data,
+                                    laikas_val,
+                                    laikas_min,
+                                    nusiskundimas,
+                                    patvirtinimas,
+                                    CONCAT(gyd.vardas, ' ', gyd.pavarde) AS gydytojas,
+                                    CONCAT(pac.vardas, ' ', pac.pavarde) AS pacientas,
+                                    vizitai.fk_GYDYTOJASid AS gydytojasid,
+                                    vizitai.fk_PACIENTASid AS pacientasid
+                                FROM vizitai
+                                    LEFT JOIN gydytojai ON vizitai.fk_GYDYTOJASid=gydytojai.id
+                                    LEFT JOIN personalo_darbuotojai ON gydytojai.fk_PERSONALO_DARBUOTOJAstabelio_numeris=personalo_darbuotojai.tabelio_numeris
+                                    LEFT JOIN asmenine_info gyd ON personalo_darbuotojai.fk_ASMENINE_INFOasmens_kodas=gyd.asmens_kodas
+                                    LEFT JOIN vartotojo_info ON gyd.fk_VARTOTOJO_INFOid=vartotojo_info.id
+                                    LEFT JOIN pacientai ON vizitai.fk_PACIENTASid=pacientai.id
+                                    LEFT JOIN asmenine_info pac ON pacientai.fk_ASMENINE_INFOasmens_kodas=pac.asmens_kodas
+                                WHERE vartotojo_info.id=@id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                }
+                else
+                {
+                    cmd.CommandText = @"SELECT 
+                                    vizitai.id,
+                                    data,
+                                    laikas_val,
+                                    laikas_min,
+                                    nusiskundimas,
+                                    patvirtinimas,
+                                    CONCAT(gyd.vardas, ' ', gyd.pavarde) AS gydytojas,
+                                    CONCAT(pac.vardas, ' ', pac.pavarde) AS pacientas,
+                                    vizitai.fk_GYDYTOJASid AS gydytojasid,
+                                    vizitai.fk_PACIENTASid AS pacientasid
+                                FROM vizitai
+                                    LEFT JOIN gydytojai ON vizitai.fk_GYDYTOJASid=gydytojai.id
+                                    LEFT JOIN personalo_darbuotojai ON gydytojai.fk_PERSONALO_DARBUOTOJAstabelio_numeris=personalo_darbuotojai.tabelio_numeris
+                                    LEFT JOIN asmenine_info gyd ON personalo_darbuotojai.fk_ASMENINE_INFOasmens_kodas=gyd.asmens_kodas
+                                    LEFT JOIN pacientai ON vizitai.fk_PACIENTASid=pacientai.id
+                                    LEFT JOIN asmenine_info pac ON pacientai.fk_ASMENINE_INFOasmens_kodas=pac.asmens_kodas
+                                    LEFT JOIN vartotojo_info ON pac.fk_VARTOTOJO_INFOid=vartotojo_info.id
+                                WHERE vartotojo_info.id=@id";
+                    cmd.Parameters.AddWithValue("@id", id);
+                }
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        visits.Add(new VizitasViewModel()
+                        {
+                            ID = Convert.ToInt32(reader["id"]),
+                            Data = Convert.ToDateTime(reader["data"]),
+                            Laikas_val = Convert.ToInt32(reader["laikas_val"]),
+                            Laikas_min = Convert.ToInt32(reader["laikas_min"]),
+                            Nusiskundimas = Convert.ToString(reader["nusiskundimas"]),
+                            Patvirtinimas = Convert.ToBoolean(reader["patvirtinimas"]),
+                            Gydytojas = Convert.ToString(reader["gydytojas"]),
+                            GydytojasID = Convert.ToInt32(reader["gydytojasid"]),
+                            Pacientas = Convert.ToString(reader["pacientas"]),
+                            PacientasID = Convert.ToInt32(reader["pacientasid"])
+                        });
+                    }
+                }
+
+                return Json(visits);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Serverio klaida.");
+            }
         }
 
         // DELETE api/<controller>/5
