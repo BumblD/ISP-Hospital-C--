@@ -7,6 +7,7 @@ namespace HospitalBackEnd.Models
 {
     public class VartotojasViewModel
     {
+        public int Id { get; set; }
         public string Asmens_Kodas { get; set; }
         public string Vardas { get; set; }
         public string Pavarde { get; set; }
