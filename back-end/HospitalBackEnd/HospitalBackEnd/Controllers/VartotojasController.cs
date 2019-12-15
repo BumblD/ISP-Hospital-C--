@@ -41,7 +41,8 @@ namespace HospitalBackEnd.Controllers
                                     pacientai.mase as mase,
                                     kraujo_grupe.name as kraujo_grupe,
                                     pacientai.rezus as rezus,
-                                    gydytojai.laipsnis as laipsnis
+                                    gydytojai.laipsnis as laipsnis,
+                                    vartotojo_info.id as id
                                 FROM asmenine_info
                                     LEFT JOIN vartotojo_info ON asmenine_info.fk_VARTOTOJO_INFOid=vartotojo_info.id
                                     LEFT JOIN personalo_darbuotojai ON asmenine_info.asmens_kodas=personalo_darbuotojai.fk_ASMENINE_INFOasmens_kodas
@@ -74,6 +75,7 @@ namespace HospitalBackEnd.Controllers
                         Kraujo_Grupe = reader["kraujo_grupe"] != DBNull.Value ? Convert.ToString(reader["kraujo_grupe"]): null,
                         Rezus = reader["rezus"] != DBNull.Value ? Convert.ToInt32(reader["rezus"]): -1,
                         Laipsnis = reader["laipsnis"] != DBNull.Value ? Convert.ToString(reader["laipsnis"]): null,
+                        Id = reader["id"] != DBNull.Value ? Convert.ToInt32(reader["id"]): -1,
                     });
                 }
             }

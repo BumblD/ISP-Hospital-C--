@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "tabler-react";
 
-export default ({ show, title, bodyContent, actions = [], handleClose }) => {
+export default ({ show, title, bodyContent, actions = [], handleClose, contentStyle }) => {
   return (
     <>
       <div
@@ -11,10 +11,10 @@ export default ({ show, title, bodyContent, actions = [], handleClose }) => {
         role="dialog"
       >
         <div
-          className="modal-dialog modal-lg modal-dialog-centered"
+          className="modal-dialog modal-lg modal-dialog-centered h-100"
           role="document"
         >
-          <div className="modal-content">
+          <div className="modal-content" style={contentStyle}>
             <div className="modal-header">
               <h4 className="modal-title">{title}</h4>
               <Button
