@@ -20,7 +20,7 @@ namespace HospitalBackEnd.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllVisits()
+        public JsonResult GetAllVisits()
         {
             List<VizitasViewModel> visits = new List<VizitasViewModel>();
             try
@@ -68,7 +68,7 @@ namespace HospitalBackEnd.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Serverio klaida.");
+                return Json(visits);
             }
         }
 

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 
+
 import { Page, Grid, Form, Table, Card, Button, Text } from "tabler-react";
 
 import Modal from "../components/Modal";
@@ -11,6 +12,7 @@ import SiteWrapper from "../SiteWrapper.react";
 import "../styles/rooms.css";
 import { getActiveElement } from "formik";
 
+const API = "https://localhost:44398/api/vizitas";
 
 let visits = [
     { id: 2, data: "2019-09-12", laikas_val: 12, laikas_min: 0, nusiskundimas: "Pilvo skausmas", patvirtinimas: false, gydytojas: "Petras Petraitis", gydytojasID: 3, pacientas: "Jonas", pacientasID: 1},
@@ -38,19 +40,49 @@ function getDoctor(doctor){
     return doctor.vardas + " " + doctor.pavarde + " (" + doctor.specializacija + ")";
 }
 
+function fetchData(action) {
+  const result = fetch(API + action)
+                  .then(response => response.json);
+  return result;
+}
+
+const Request = async (action) => {
+  const response = await fetch(API + action);
+  const json = response.json;
+  
+  console.log(json);
+  return json;
+}
+
+
+
 const VisitsPage = () => {
-    const [hasError, setErrors] = useState(false);
+    
     const [showAdd, setShowAdd] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
     const [showFiltered, setShowFiltered] = useState(false);
 
-    
+    //console.log(fetchData(""));
+
+
+    const [allDoctorsData, setAllDoctorsData] = useState([]);
+/*
+    useEffect(async () => {
+      const result = await fetch(API);
+      result.json.then(res => setAllDoctorsData(res));
+    });
 
     
+    
+
+    */
 
     async function fetchDoctors(){
       const res = await fetch("https://localhost:44398/api/vizitas");
-      console.log(res);
+      res
+        .json()
+        .then(result => setAllDoctorsData(result));
+      
     }
 
     useEffect(() => {
@@ -91,7 +123,7 @@ const VisitsPage = () => {
         <Page.Header
           title="Vizitai"
         />
-        
+      
       <div className="rooms-type-select">
       {!showFiltered && (role === 1 || role === 4) && <Button color="primary" onClick={() => setShowFilter(true)}>Vizito paieška</Button>}
             <Modal                //Add new room modal (pop-up)
