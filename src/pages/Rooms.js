@@ -1,6 +1,8 @@
 // @flow
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import axios from 'axios';
 
 import { Page, Grid, Form, Table, Card, Button, Text } from "tabler-react";
 
@@ -11,7 +13,9 @@ import SiteWrapper from "../SiteWrapper.react";
 import "../styles/rooms.css";
 
 
-let roomsData = [
+const API = "https://localhost:44398/rooms/";
+
+/*let roomsData = [
     { Number: 1, Area: 49, TypeId: 1, TypeName: "Palata", Size: 6 },
     { Number: 2, Area: 11, TypeId: 2, TypeName: "Kabinetas", Size: 1 },
     { Number: 3, Area: 12, TypeId: 3, TypeName: "Laboratorija", Size: 2 },
@@ -22,7 +26,7 @@ let roomsData = [
     { Number: 8, Area: 41, TypeId: 2, TypeName: "Kabinetas", Size: 1 },
     { Number: 9, Area: 22, TypeId: 3, TypeName: "Laboratorija", Size: 2 },
     { Number: 10, Area: 53, TypeId: 2, TypeName: "Kabinetas", Size: 1 }
-];
+];*/
 
 let roomsDetails = [
   { Number: 1, Address: "Rumšiškių g.1-1, Granatų m.", Patients: [ "Pranas Jonaitis", "Jonas Pranaitis" ], Doctor: "", Procedure: "" },
@@ -36,6 +40,20 @@ let roomsDetails = [
   { Number: 9, Address: "Rumšiškių g.1-9, Granatų m.", Patients: [], Doctor: "", Procedure: "" },
   { Number: 10, Address: "Rumšiškių g.1-10, Granatų m.", Patients: [], Doctor: "", Procedure: "" }
 ]
+
+/*function FetchData(action) {
+  return await fetch(API + action)
+  .then(response => response.json());
+}*/
+
+/*const Request = async (action) => {    
+  const response = await fetch(API + action);    
+  const json = await response.json();
+  roomsData = json;   
+  //return json;
+  console.log(roomsData);
+  return json;
+}*/
 
 function DetailsType(room, readOnly) {
   if (room.TypeId === 1) {
@@ -71,6 +89,18 @@ function DetailsType(room, readOnly) {
 
 function RoomsPage() {
   const [showAdd, setShowAdd] = useState(false);
+
+  //console.log(FetchData("GetAllRooms"));
+  //console.log(RequestSync());//("GetAllRooms"));
+  //Request("GetAllRooms");
+
+  const [roomsData, setRoomsData] = useState([]);
+  useEffect(async () => {
+    const result = await axios(
+      API + 'GetAllRooms',
+    );
+    setRoomsData(result.data);
+  });
 
   const removeModals = [];
   const patientModals = []
