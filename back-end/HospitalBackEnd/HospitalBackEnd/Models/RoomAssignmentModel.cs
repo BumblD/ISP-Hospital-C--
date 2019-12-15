@@ -10,6 +10,7 @@ namespace HospitalBackEnd.Models
         public int RoomId { get; set; }
         public int? PatientCode { get; set; }
         public int? TabNum { get; set; }
+        public int? ProcType { get; set; }
         public DateTime From { get; set; }
         public DateTime To { get; set; }
     }

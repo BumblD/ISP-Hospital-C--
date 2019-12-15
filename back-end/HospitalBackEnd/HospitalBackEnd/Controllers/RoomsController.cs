@@ -103,7 +103,7 @@ namespace HospitalBackEnd.Controllers
             {
                 Db.Connection.Open();
                 var cmd = Db.Connection.CreateCommand() as MySqlCommand;
-                cmd.CommandText = string.Format(@"SELECT p.*, pt.name AS pname, CONCAT(ai.vardas, ' ', ai.pavarde) as gydytojas, tt.name AS tname, (SELECT GROUP_CONCAT(CONCAT(aii.vardas, ' ', aii.pavarde) SEPARATOR ';')
+                cmd.CommandText = string.Format(@"SELECT p.*, pt.name AS pname, CONCAT(ai.vardas, ' ', ai.pavarde) as gydytojas, pttt.name AS tname, (SELECT GROUP_CONCAT(CONCAT(aii.vardas, ' ', aii.pavarde) SEPARATOR ';')
                                                 FROM pacientai pp
                                                 LEFT JOIN asmenine_info aii on aii.asmens_kodas = pp.fk_ASMENINE_INFOasmens_kodas
                                                 WHERE pp.fk_PATALPAid = p.nr
@@ -114,10 +114,11 @@ namespace HospitalBackEnd.Controllers
                                                 LEFT JOIN asmenine_info ai on ai.asmens_kodas = pd.fk_ASMENINE_INFOasmens_kodas
                                                 LEFT JOIN tyrimai t on t.fk_PATALPAnr = p.nr
                                                 LEFT JOIN tyrimo_tipas tt on tt.id = t.tipas
+                                                LEFT JOIN proceduros_tipas pttt ON pttt.patalpa_id = '{0};'
                                                 LEFT JOIN pacientai pp on pp.fk_PATALPAid = p.nr
                                                 LEFT JOIN asmenine_info aii on aii.asmens_kodas = pp.fk_ASMENINE_INFOasmens_kodas
-                                                WHERE p.nr = {0}
-                                                GROUP BY p.nr", id);
+                                                WHERE p.nr = {1}
+                                                GROUP BY p.nr", id, id);
 
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -249,6 +250,11 @@ namespace HospitalBackEnd.Controllers
                     cmd.CommandText = (string.Format(@"INSERT INTO patalpos_uzimtumas(patalpa_id, nuo, iki) VALUES ({0}, '{1}', '{2}')", data.RoomId, data.From.Date, data.To.Date));
                     cmd.ExecuteNonQuery();
                     Db.Connection.Close();
+
+                    Db.Connection.Open();
+                    cmd.CommandText = string.Format(@"UPDATE proceduros_tipas SET patalpa_id = CONCAT('{0}', ';') WHERE id = {1}", data.RoomId, data.ProcType);
+                    cmd.ExecuteNonQuery();
+                    Db.Connection.Close();
                 }
                 return Ok();
             }
@@ -285,6 +291,11 @@ namespace HospitalBackEnd.Controllers
                 {
                     Db.Connection.Open();
                     cmd.CommandText = string.Format(@"INSERT INTO patalpos_uzimtumas(patalpa_id, nuo, iki, pacientas_asmensk) VALUES ({0}, '{1}', '{2}', {3})", data.RoomId, data.From.Date, data.To.Date, data.PatientCode);
+                    cmd.ExecuteNonQuery();
+                    Db.Connection.Close();
+
+                    Db.Connection.Open();
+                    cmd.CommandText = string.Format(@"UPDATE pacientas SET fk_PATALPAid = {0} WHERE fk_ASMENINE_INFOasmens_kodas = {1}", data.RoomId, data.PatientCode);
                     cmd.ExecuteNonQuery();
                     Db.Connection.Close();
                 }
