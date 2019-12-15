@@ -1,6 +1,6 @@
 // @flow
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Page, Grid, Form, Table, Card, Button, Text } from "tabler-react";
 
@@ -22,7 +22,7 @@ let doctors = [
     {id: 3, vardas: "Vardas1", pavarde: "Pavarde1", specializacija: "Bendra"},
     {id: 4, vardas: "Vardas2", pavarde: "Pavarde2", specializacija: "Bendra"}
 ];
-
+let role = 4;
 
 function getTime(visit){
     let output = visit.laikas_val+":";
@@ -38,15 +38,30 @@ function getDoctor(doctor){
     return doctor.vardas + " " + doctor.pavarde + " (" + doctor.specializacija + ")";
 }
 
-function VisitsPage() {
+const VisitsPage = () => {
+    const [hasError, setErrors] = useState(false);
     const [showAdd, setShowAdd] = useState(false);
     const [showFilter, setShowFilter] = useState(false);
+    const [showFiltered, setShowFiltered] = useState(false);
 
+    
+
+    
+
+    async function fetchDoctors(){
+      const res = await fetch("https://localhost:44398/api/vizitas");
+      console.log(res);
+    }
+
+    useEffect(() => {
+      fetchDoctors();
+    });
+
+    
     const doctorsData = [];
-    doctors.forEach(doctor => doctorsData[doctor.id] = doctor);
-
     const visitsData = [];
     visits.forEach(visit => visitsData[visit.id] = visit);
+    doctors.forEach(doctor => doctorsData[doctor.id] = doctor);
 
   const removeModals = [];
   const detailsModals = [];
@@ -78,7 +93,7 @@ function VisitsPage() {
         />
         
       <div className="rooms-type-select">
-      <Button color="primary" onClick={() => setShowFilter(true)}>Vizito paieška</Button>
+      {!showFiltered && (role === 1 || role === 4) && <Button color="primary" onClick={() => setShowFilter(true)}>Vizito paieška</Button>}
             <Modal                //Add new room modal (pop-up)
               show={showFilter} 
               handleClose={() => setShowFilter(false)} 
@@ -92,18 +107,21 @@ function VisitsPage() {
                     <Form.Select className="w-auto mr-2">
                         <option value="0" name="gydytojasID">---</option>
                         {doctorsData.map(doctor => (
-              <option value={doctor.id} name="gydytojasID">{getDoctor(doctor)}</option>
+                          <option value={doctor.id} name="gydytojasID">{getDoctor(doctor)}</option>
                         ))}
                     </Form.Select>
                 </Form>
               }
               actions={[
                   { label:"Atšaukti", onClick:() => setShowFilter(false) }, 
-                  { label:"Ieškoti", color:"primary", onClick:() => setShowFilter(false) }
+                  { label:"Ieškoti", color:"primary", onClick:() => {
+                    setShowFilter(false);
+                    setShowFiltered(true)
+                  }}
                 ]}/>
 
         <div className="add-room-button">
-            <Button color="primary" onClick={() => setShowAdd(true)}>+ Registruoti vizitą</Button>
+            {!showFiltered && (role === 1 || role === 4) && <Button color="primary" onClick={() => setShowAdd(true)}>+ Registruoti vizitą</Button>}
             <Modal                //Add new room modal (pop-up)
               show={showAdd} 
               handleClose={() => setShowAdd(false)} 
@@ -163,26 +181,26 @@ function VisitsPage() {
               >
                 <Table.Header>
                     <Table.Row>
-                        <Table.ColHeader><strong>ID</strong></Table.ColHeader>
+                        {!showFiltered && <Table.ColHeader><strong>ID</strong></Table.ColHeader>}
                         <Table.ColHeader><strong>Data</strong></Table.ColHeader>
                         <Table.ColHeader><strong>Laikas</strong></Table.ColHeader>
-                        <Table.ColHeader><strong>Pacientas</strong></Table.ColHeader>
-                        <Table.ColHeader><strong>Gydytojas</strong></Table.ColHeader>
+                        {(role === 1 || role === 2) && !showFiltered && <Table.ColHeader><strong>Pacientas</strong></Table.ColHeader>}
+                        {(role === 1 || role === 4) && <Table.ColHeader><strong>Gydytojas</strong></Table.ColHeader>}
                         <Table.ColHeader/>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
                 {visitsData.map(visit => (
                     <Table.Row key={visit.id}>
-                        <Table.Col><div>{visit.id}</div></Table.Col>
+                        {!showFiltered &&<Table.Col><div>{visit.id}</div></Table.Col>}
                         <Table.Col><div>{visit.data}</div></Table.Col>
                         <Table.Col><div>{getTime(visit)}</div></Table.Col>
-                        <Table.Col><div>{visit.pacientas}</div></Table.Col>
-                        <Table.Col><div>{doctorsData[visit.gydytojasID].vardas} {doctorsData[visit.gydytojasID].pavarde}</div></Table.Col>
+                        {(role === 1 || role === 2) && !showFiltered &&<Table.Col><div>{visit.pacientas}</div></Table.Col>}
+                        {(role === 1 || role === 4) && <Table.Col><div>{doctorsData[visit.gydytojasID].vardas} {doctorsData[visit.gydytojasID].pavarde}</div></Table.Col>}
                         
-                    <Table.Col >
-                        <Button.List>
-                            <Button color="info" onClick={() => detailsModals[visit.id].setShowDetails(true)}>Detalesnė informacija</Button>
+                    <Table.Col alignContent="right">
+                        <Button.List >
+                            {!showFiltered && <Button color="info" onClick={() => detailsModals[visit.id].setShowDetails(true)}>Detalesnė informacija</Button>}
                         <Modal                //Room details (pop-up)
                           show={detailsModals[visit.id].showDetails} 
                           handleClose={() => detailsModals[visit.id].setShowDetails(false)} 
@@ -218,7 +236,7 @@ function VisitsPage() {
 
 
 
-                        <Button color="warning" onClick={() => editModals[visit.id].setShowEdit(true)}>Redaguoti</Button>
+                        {!showFiltered && <Button color="warning" onClick={() => editModals[visit.id].setShowEdit(true)}>Redaguoti</Button>}
                         <Modal  
                         
                           show={editModals[visit.id].showEdit} 
@@ -229,7 +247,7 @@ function VisitsPage() {
                             <Form.Input name='date' type="date" label='Data' value={visit.data}/>
                             <Form.Label>Laikas</Form.Label>
                             
-                            <Form.Select className="w-auto mr-2" name="laikas_val">
+                            <Form.Select name="laikas_val">
                                 <option selected={visit.laikas_val === 8} value="8">08</option>
                                 <option selected={visit.laikas_val === 9} value="9">09</option>
                                 <option selected={visit.laikas_val === 10} value="10">10</option>
@@ -242,8 +260,8 @@ function VisitsPage() {
                                 <option selected={visit.laikas_val === 17} value="17">17</option>
                                 <option selected={visit.laikas_val === 18} value="18">18</option>
                                 <option selected={visit.laikas_val === 19} value="19">19</option>>
-                            </Form.Select>:  
-                            <Form.Select className="w-auto mr-2" name="laikas_min">
+                            </Form.Select><br />  
+                            <Form.Select name="laikas_min">
                                 <option selected={visit.laikas_min === 0} value="0">00</option>
                                 <option selected={visit.laikas_min === 15} value="15">15</option>
                                 <option selected={visit.laikas_min === 30} value="30">30</option>
@@ -251,7 +269,7 @@ function VisitsPage() {
                             </Form.Select>
                             <br /><br />
                             <Form.Label>Gydytojas</Form.Label>
-                            <Form.Select className="w-auto mr-2" name="gydytojasID">
+                            <Form.Select name="gydytojasID">
                                 {doctorsData.map(doctor => (
                                     <option selected={visit.gydytojasID === doctor.id} value={doctor.id}>{getDoctor(doctor)}</option>
                                 ))}
@@ -265,7 +283,7 @@ function VisitsPage() {
                               { label:"Išsaugoti", color:"primary", onClick:() => editModals[visit.id].setShowEdit(false) }
                           ]}/>
 
-                        <Button color="green" onClick={() => acceptModals[visit.id].setShowAccept(true)}>Patvirtinti</Button>
+                        {!showFiltered && role == 2 && <Button color="green" onClick={() => acceptModals[visit.id].setShowAccept(true)}>Patvirtinti</Button>}
                         <Modal      //remove room modal
                           show={acceptModals[visit.id].showAccept} 
                           handleClose={() => acceptModals[visit.id].setShowAccept(false)} 
@@ -280,7 +298,7 @@ function VisitsPage() {
                             { label:"Patvirtinti", color:"primary", onClick:() => acceptModals[visit.id].setShowAccept(false) }
                           ]} />
 
-                        <Button color="danger" onClick={() => removeModals[visit.id].setShowRemove(true)}>Šalinti</Button>
+                        {!showFiltered && <Button color="danger" onClick={() => removeModals[visit.id].setShowRemove(true)}>Šalinti</Button>}
                         <Modal      //remove room modal
                           show={removeModals[visit.id].showRemove} 
                           handleClose={() => removeModals[visit.id].setShowRemove(false)} 
@@ -298,7 +316,7 @@ function VisitsPage() {
 
 
 
-                        <Button color="blue" onClick={() => registerModals[visit.id].setShowRegister(true)}>Registruotis</Button>
+                        {showFiltered && <Button color="blue" onClick={() => registerModals[visit.id].setShowRegister(true)}>Registruotis</Button>}
                         <Modal  
                         
                           show={registerModals[visit.id].showRegister} 
@@ -342,7 +360,10 @@ function VisitsPage() {
                           }
                           actions={[
                               { label:"Atšaukti", onClick:() => registerModals[visit.id].setShowRegister(false) },
-                              { label:"Išsaugoti", color:"primary", onClick:() => registerModals[visit.id].setShowRegister(false) }
+                              { label:"Išsaugoti", color:"primary", onClick:() => {
+                                registerModals[visit.id].setShowRegister(false);
+                                setShowFiltered(false)
+                              }}
                           ]}/>
 
 
