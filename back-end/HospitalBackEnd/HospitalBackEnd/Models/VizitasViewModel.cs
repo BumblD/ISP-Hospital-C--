@@ -9,7 +9,7 @@ namespace HospitalBackEnd.Models
     public class VizitasViewModel
     {
         public int ID { get; set; }
-        public DateTime Data { get; set; }
+        public string Data { get; set; }
         public int Laikas_val { get; set; }
         public int Laikas_min { get; set; }
         public string Nusiskundimas { get; set; }

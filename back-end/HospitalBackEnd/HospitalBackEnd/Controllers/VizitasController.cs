@@ -20,7 +20,7 @@ namespace HospitalBackEnd.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllVisits()
+        public JsonResult GetAllVisits()
         {
             List<VizitasViewModel> visits = new List<VizitasViewModel>();
             try
@@ -52,7 +52,7 @@ namespace HospitalBackEnd.Controllers
                         visits.Add(new VizitasViewModel()
                         {
                             ID = Convert.ToInt32(reader["id"]),
-                            Data = Convert.ToDateTime(reader["data"]),
+                            Data = Convert.ToString(reader["data"]),
                             Laikas_val = Convert.ToInt32(reader["laikas_val"]),
                             Laikas_min = Convert.ToInt32(reader["laikas_min"]),
                             Nusiskundimas = Convert.ToString(reader["nusiskundimas"]),
@@ -68,12 +68,12 @@ namespace HospitalBackEnd.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Serverio klaida.");
+                return Json(visits);
             }
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetVisitByID(int id)
+        public JsonResult GetVisitByID(int id)
         {
             VizitasViewModel visitByID;
             try
@@ -88,7 +88,7 @@ namespace HospitalBackEnd.Controllers
                     visitByID = new VizitasViewModel()
                     {
                         ID = Convert.ToInt32(reader["id"]),
-                        Data = Convert.ToDateTime(reader["data"]),
+                        Data = Convert.ToString(reader["data"]),
                         Laikas_val = Convert.ToInt32(reader["laikas_val"]),
                         Laikas_min = Convert.ToInt32(reader["laikas_min"]),
                         Nusiskundimas = Convert.ToString(reader["nusiskundimas"]),
@@ -101,12 +101,13 @@ namespace HospitalBackEnd.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Serverio klaida: vizito su tokiu ID nėra.");
+                visitByID = new VizitasViewModel();
+                return Json(visitByID);
             }
         }
 
         [HttpGet("{begin}/{end}/{doctorID}")]
-        public IActionResult GetAllEmptyVisits(DateTime begin, DateTime end, int doctorID)
+        public JsonResult GetAllEmptyVisits(DateTime begin, DateTime end, int doctorID)
         {
             List<VizitasViewModel> visits = new List<VizitasViewModel>();
             try
@@ -128,7 +129,7 @@ namespace HospitalBackEnd.Controllers
                     {
                         int startTime = Convert.ToInt32(reader["pradzia_val"]);
                         int endTime = Convert.ToInt32(reader["pabaiga_val"]);
-                        DateTime visitDate = Convert.ToDateTime(reader["data"]);
+                        string visitDate = Convert.ToString(reader["data"]);
                         for (int i = startTime; i < endTime; i++)
                         {
                             visits.Add(new VizitasViewModel()
@@ -179,7 +180,7 @@ namespace HospitalBackEnd.Controllers
                         selectedVisits.Add(new VizitasViewModel()
                         {
                             ID = Convert.ToInt32(reader["id"]),
-                            Data = Convert.ToDateTime(reader["data"]),
+                            Data = Convert.ToString(reader["data"]),
                             Laikas_val = Convert.ToInt32(reader["laikas_val"]),
                             Laikas_min = Convert.ToInt32(reader["laikas_min"]),
                             Nusiskundimas = Convert.ToString(reader["nusiskundimas"]),
@@ -199,7 +200,7 @@ namespace HospitalBackEnd.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Serverio klaida.");
+                return Json(visits);
             }
         }
 
@@ -208,12 +209,11 @@ namespace HospitalBackEnd.Controllers
         [HttpPost]
         public IActionResult CreateNewVisit([FromBody]VizitasViewModel visit)
         {
-            
             if(visit == null)
             {
                 return BadRequest("Nenurodytas vizitas.");
             }
-            if (visit.Data < DateTime.Today)
+            if (Convert.ToDateTime(visit.Data) < DateTime.Today)
             {
                 return BadRequest("Blogai nurodyta vizito data.");
             }
@@ -238,11 +238,11 @@ namespace HospitalBackEnd.Controllers
                 Db.Connection.Open();
                 var cmd = Db.Connection.CreateCommand() as MySqlCommand;
                 cmd.CommandText = @"INSERT INTO vizitai (data, laikas_val, laikas_min, nusiskundimas, patvirtinimas, fk_GYDYTOJASid, fk_PACIENTASid) VALUES(@Data, @Laikas_val, @Laikas_min, @Nusiskundimas, @Patvirtinimas, @GydytojasID, @PacientasID)";
-                cmd.Parameters.AddWithValue("@Data", visit.Data);
+                cmd.Parameters.AddWithValue("@Data", DateTime.Now);
                 cmd.Parameters.AddWithValue("@Laikas_val", visit.Laikas_val);
                 cmd.Parameters.AddWithValue("@Laikas_min", visit.Laikas_min);
                 cmd.Parameters.AddWithValue("@Nusiskundimas", visit.Nusiskundimas);
-                cmd.Parameters.AddWithValue("@Patvirtinimas", visit.Patvirtinimas);
+                cmd.Parameters.AddWithValue("@Patvirtinimas", false);
                 cmd.Parameters.AddWithValue("@GydytojasID", visit.GydytojasID);
                 cmd.Parameters.AddWithValue("@PacientasID", visit.PacientasID);
                 int code = cmd.ExecuteNonQuery();
@@ -264,7 +264,7 @@ namespace HospitalBackEnd.Controllers
             {
                 return BadRequest("Nenurodytas vizitas.");
             }
-            if (visit.Data < DateTime.Today)
+            if (Convert.ToDateTime(visit.Data) < DateTime.Today)
             {
                 return BadRequest("Blogai nurodyta vizito data.");
             }
@@ -314,7 +314,7 @@ namespace HospitalBackEnd.Controllers
             }
         }
 
-        [HttpGet("accept/{id}")]
+        [HttpDelete("accept/{id}")]
         public IActionResult AcceptVisitByID(int id)
         {
             try
@@ -417,7 +417,7 @@ namespace HospitalBackEnd.Controllers
                         visits.Add(new VizitasViewModel()
                         {
                             ID = Convert.ToInt32(reader["id"]),
-                            Data = Convert.ToDateTime(reader["data"]),
+                            Data = Convert.ToDateTime(reader["data"]).ToString("yyyy-MM-dd"),
                             Laikas_val = Convert.ToInt32(reader["laikas_val"]),
                             Laikas_min = Convert.ToInt32(reader["laikas_min"]),
                             Nusiskundimas = Convert.ToString(reader["nusiskundimas"]),
