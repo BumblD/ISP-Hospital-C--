@@ -13,13 +13,15 @@ import "../styles/rooms.css";
 function Doctor(user){
     if (user.tipas == 2) {
         return (
-            <Form.SelectGroupItem label={user.vardas + " " + user.pavarde}/>
+            <option value={user.gydytojas}> {user.vardas + " " + user.pavarde} </option>
             );
     }
 }
 
 const DetailsModal = (props) => {
     const [showModal, setShowModal] = useState(false);
+
+    const [user, setUser] = useState(props.user);
 
     return (
         <React.Fragment>
@@ -29,26 +31,97 @@ const DetailsModal = (props) => {
                 show={showModal}
                 handleClose={() => setShowModal(false)}
                 title='Vartotojo detalės'
-                bodyContent={
+                bodyContent={(
                     <Form>
-                        <Form.Label>Lytis</Form.Label>
-                        <Form.Input disabled
-                                    value={props.user.lytis}
+                        <Form.Label>Elektroninis paštas</Form.Label>
+                        <Form.Input
+                            name="el_Pastas"
+                            value={user.el_Pastas}
+                            disabled
                         />
-                        <Form.Label>Gimimo data</Form.Label>
-                        <Form.Input disabled
-                                    value={props.user.gimimo_Data}
+                        <Form.Label>Slaptažodis</Form.Label>
+                        <Form.Input
+                            name="slaptazodis"
+                            value={user.slaptazodis}
+                            disabled
                         />
-                        <Form.Label>Asmens kodas</Form.Label>
-                        <Form.Input disabled
-                                    value={props.user.asmens_Kodas}
+                        <Form.Label>Vardas</Form.Label>
+                        <Form.Input
+                            name="vardas"
+                            value={user.vardas}
+                            disabled
+                        />
+                        <Form.Label>Pavardė</Form.Label>
+                        <Form.Input
+                            name="pavarde"
+                            value={user.pavarde}
+                            disabled
                         />
                         <Form.Label>Telefonas</Form.Label>
-                        <Form.Input disabled
-                                    value={props.user.telefonas}
-                        />4
+                        <Form.Input
+                            name="telefonas"
+                            value={user.telefonas}
+                            disabled
+                        />
+                        <Form.Label>Gimimo data</Form.Label>
+                        <Form.Input
+                            name="gimimo_Data"
+                            value={user.gimimo_Data}
+                            disabled
+                        />
+                        <Form.Label>Asmens kodas</Form.Label>
+                        <Form.Input
+                            name="asmens_Kodas"
+                            value={user.asmens_Kodas}
+                            disabled
+                        />
+                        <Form.Label>Lytis</Form.Label>
+                        <Form.Select name="lytis" value={user.lytis} disabled>
+                            <option key="vyras" value="vyras"> Vyras </option>
+                            <option key="moteris" value="moteris"> Moteris </option>
+                        </Form.Select>
+                        {user.tipas == 2 ? (
+                            <React.Fragment>
+                                <Form.Input name='laipsnis' label='Tabelio numeris' value={user.tabelio_Numeris} disabled />
+                                <Form.Input name='laipsnis' label='Laipsnis' value={user.laipsnis} disabled />
+                                <Form.Select label="Specializacija" name="specializacijos_Kodas" value={user.specializacijos_Kodas} disabled>
+                                    <option value="1"> Bendra </option>
+                                    <option value="2"> Oftolmologas </option>
+                                    <option value="3"> LOR </option>
+                                    <option value="4"> Traumatologas </option>
+                                    <option value="5"> Chirurgas </option>
+                                    <option value="6"> Kardiologas </option>
+                                    <option value="7"> Infektologas </option>
+                                    <option value="8"> Dermatologas </option>
+                                    <option value="9"> Odontologas </option>
+                                </Form.Select>
+                            </React.Fragment>
+                        ) : (<React.Fragment></React.Fragment>)}
+
+                        {user.tipas == 3 ? (
+                            <React.Fragment>
+                                <Form.Input name='tabelio_Numeris' label='Tabelio numeris' value={user.tabelio_Numeris} disabled />
+                            </React.Fragment>
+                        ) : (<React.Fragment></React.Fragment>)}
+
+                        {user.tipas == 4 ? (
+                            <React.Fragment>
+                                <Form.Input name='ugis' label='Ūgis' value={user.ugis}  placeholder='Įveskite vartotojo ūgį' disabled />
+                                <Form.Input name='mase' label='Mase' value={user.mase}  placeholder='Įveskite vartotojo masę' disabled />
+                                <Form.Select label="Kraujo grupė" name="kraujo_grupe" value={user.kraujo_Grupe} disabled>
+                                    <option value="0"> 0 </option>
+                                    <option value="A"> A </option>
+                                    <option value="B"> B </option>
+                                    <option value="AB"> AB </option>
+                                </Form.Select>
+                                <Form.Select label="Rezus" name="rezus" value={user.rezus} disabled>
+                                    <option value="1"> + </option>
+                                    <option value="0"> - </option>
+                                </Form.Select>
+                            </React.Fragment>
+                        ) : (<React.Fragment></React.Fragment>)}
                     </Form>
-                }
+                )}
                 actions={[
                     { label:"Uždaryti", onClick:() => setShowModal(false) }
                 ]}/>
@@ -58,6 +131,16 @@ const DetailsModal = (props) => {
 
 const RemoveModal = (props) => {
     const [showModal, setShowModal] = useState(false);
+
+    const submitForm = () => {
+        setShowModal(false);
+        fetch('https://localhost:44398/vartotojas/deleteuserbyid/' + props.user.id, {
+            method: 'delete',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(props.user)
+        });
+        window.location.reload();
+    }
 
     return (
         <React.Fragment>
@@ -73,7 +156,7 @@ const RemoveModal = (props) => {
                 }
                 actions={[
                     { label:"Atšaukti", onClick:() => setShowModal(false) },
-                    { label:"Patvirtinti", color:"primary", onClick:() => setShowModal(false) }
+                    { label:"Patvirtinti", color:"primary", onClick:() => submitForm() }
                 ]} />
         </React.Fragment>
     );
@@ -82,11 +165,31 @@ const RemoveModal = (props) => {
 const DoctorModal = (props) => {
     const [showModal, setShowModal] = useState(false);
 
+    const [user, setUser] = useState(props.user);
+
+    const [users, setUsers] = useState(props.users);
+
+    const submitForm = () => {
+        setShowModal(false);
+        fetch('https://localhost:44398/vartotojas/assigndoctor/' + user.asmens_Kodas, {
+            method: 'put',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(user)
+        });
+    }
+
+    const handleInputChange = (e) => {
+        setUser({
+            ...user,
+            [e.currentTarget.name]: e.currentTarget.value
+        });
+    }
+
     return (
         <React.Fragment>
             <Button
                 color="gray"
-                disabled={props.user.tipas !== 4}
+                disabled={props.user.tipas !== "4"}
                 onClick={() => setShowModal(true)}>
                 Priskirti gydytojui
             </Button>
@@ -96,17 +199,17 @@ const DoctorModal = (props) => {
                 title='Priskirti gydytojui'
                 bodyContent={
                     <Form>
-                        <Form.Label>Gydytojo vardas pavardė</Form.Label>
-                        <Form.SelectGroup>
+                        <Form.Select label="Gydytojo vardas pavardė" name="priskirtas" value={user.priskirtas} onChange={handleInputChange}>
+                            <option disabled selected value> -- pasirinkite gydytoją -- </option>
                             {props.users.map(doctor => (
                                 Doctor(doctor)
                             ))}
-                        </Form.SelectGroup>
+                        </Form.Select>
                     </Form>
                 }
                 actions={[
                     { label:"Atšaukti", onClick:() => setShowModal(false) },
-                    { label:"Patvirtinti", color:"primary", onClick:() => setShowModal(false) }
+                    { label:"Patvirtinti", color:"primary", onClick:() => submitForm() }
                 ]}/>
         </React.Fragment>
     );
@@ -116,6 +219,15 @@ const EditModal = (props) => {
     const [showModal, setShowModal] = useState(false);
 
     const [user, setUser] = useState(props.user);
+
+    const submitForm = () => {
+        setShowModal(false);
+        fetch('https://localhost:44398/vartotojas/updateuserbyid/' + user.id, {
+            method: 'put',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify(user)
+        });
+    }
 
     const handleInputChange = (e) => {
         setUser({
@@ -133,8 +245,20 @@ const EditModal = (props) => {
                 show={showModal}
                 handleClose={() => setShowModal(false)}
                 title='Redaguoti vartotoją'
-                bodyContent={
+                bodyContent={(
                     <Form>
+                        <Form.Label>Elektroninis paštas</Form.Label>
+                        <Form.Input
+                            name="el_Pastas"
+                            value={user.el_Pastas}
+                            onChange={handleInputChange}
+                        />
+                        <Form.Label>Slaptažodis</Form.Label>
+                        <Form.Input
+                            name="slaptazodis"
+                            value={user.slaptazodis}
+                            onChange={handleInputChange}
+                        />
                         <Form.Label>Vardas</Form.Label>
                         <Form.Input
                             name="vardas"
@@ -155,25 +279,67 @@ const EditModal = (props) => {
                         />
                         <Form.Label>Gimimo data</Form.Label>
                         <Form.Input
-                            name="gimimo_Data"
                             value={user.gimimo_Data}
-                            onChange={handleInputChange}
+                            disabled
                         />
                         <Form.Label>Asmens kodas</Form.Label>
                         <Form.Input
+                            name="asmens_Kodas"
                             value={user.asmens_Kodas}
                             disabled
                         />
                         <Form.Label>Lytis</Form.Label>
-                        <Form.Select name="lytis" onChange={handleInputChange}>
+                        <Form.Select name="lytis" value={user.lytis} onChange={handleInputChange}>
                             <option key="vyras" value="vyras"> Vyras </option>
                             <option key="moteris" value="moteris"> Moteris </option>
                         </Form.Select>
+                        {user.tipas == 2 ? (
+                            <React.Fragment>
+                                <Form.Input name='tabelio_Numeris' label='Tabelio numeris' value={user.tabelio_Numeris} disabled />
+                                <Form.Input name='laipsnis' label='Laipsnis' value={user.laipsnis} onChange={handleInputChange} />
+                                <Form.Select label="Specializacija" name="specializacijos_Kodas" value={user.specializacijos_Kodas} onChange={handleInputChange}>
+                                    <option value="1"> Bendra </option>
+                                    <option value="2"> Oftolmologas </option>
+                                    <option value="3"> LOR </option>
+                                    <option value="4"> Traumatologas </option>
+                                    <option value="5"> Chirurgas </option>
+                                    <option value="6"> Kardiologas </option>
+                                    <option value="7"> Infektologas </option>
+                                    <option value="8"> Dermatologas </option>
+                                    <option value="9"> Odontologas </option>
+                                </Form.Select>
+                            </React.Fragment>
+                        ) : (<React.Fragment></React.Fragment>)}
+
+                        {user.tipas == 3 ? (
+                            <React.Fragment>
+                                <Form.Input name='tabelio_Numeris' label='Tabelio numeris' value={user.tabelio_Numeris} disabled />
+                            </React.Fragment>
+                        ) : (<React.Fragment></React.Fragment>)}
+
+                        {user.tipas == 4 ? (
+                            <React.Fragment>
+                                <Form.Input name='ugis' label='Ūgis' value={user.ugis}  placeholder='Įveskite vartotojo ūgį' onChange={handleInputChange} />
+                                <Form.Input name='mase' label='Mase' value={user.mase}  placeholder='Įveskite vartotojo masę' onChange={handleInputChange} />
+                                <Form.Select label="Kraujo grupė" name="kraujo_Grupe" value={user.kraujo_Grupe} onChange={handleInputChange}>
+                                    <option disabled selected value> -- pasirinkite kraujo grupę -- </option>
+                                    <option value="0"> 0 </option>
+                                    <option value="A"> A </option>
+                                    <option value="B"> B </option>
+                                    <option value="AB"> AB </option>
+                                </Form.Select>
+                                <Form.Select label="Rezus" name="rezus" value={user.rezus} onChange={handleInputChange}>
+                                    <option disabled selected value> -- pasirinkite rezus -- </option>
+                                    <option value="1"> + </option>
+                                    <option value="0"> - </option>
+                                </Form.Select>
+                            </React.Fragment>
+                        ) : (<React.Fragment></React.Fragment>)}
                     </Form>
-                }
+                )}
                 actions={[
                     { label:"Atšaukti", onClick:() => setShowModal(false) },
-                    { label:"Išsaugoti", color:"primary", onClick:() => setShowModal(false) }
+                    { label:"Išsaugoti", color:"primary", onClick:() => submitForm()  }
                 ]}/>
         </React.Fragment>
     );
@@ -188,8 +354,11 @@ const NewModal = () => {
     const [showModal, setShowModal] = useState(false);
 
     const [user, setUser] = useState({
-        tipas: 1,
+        tipas: "1",
         lytis: 'vyras',
+        specializacija: "1",
+        kraujo_Grupe: "0",
+        rezus: "0"
     });
 
     const handleInputChange = (e) => {
@@ -200,7 +369,8 @@ const NewModal = () => {
     }
 
     const submitForm = () => {
-        fetch('https://localhost:5001/vartotojas/createnewuser', {
+        setShowModal(false);
+        fetch('https://localhost:44398/vartotojas/createnewuser', {
             method: 'post',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(user)
@@ -219,36 +389,60 @@ const NewModal = () => {
                 bodyContent={(
                     <Form>
                     <Form.Select label="Vartotojo tipas" name="tipas" value={user.tipas} onChange={handleInputChange}>
-                        <option value="1"> Administratorius </option>
-                        <option value="2"> Gydytojas </option>
-                        <option value="3"> Laborantas </option>
-                        <option value="4"> Pacientas </option>
+                    <option value="1"> Administratorius </option>
+                    <option value="2"> Gydytojas </option>
+                    <option value="3"> Laborantas </option>
+                    <option value="4"> Pacientas </option>
                     </Form.Select>
+                    <Form.Input name='el_Pastas' label='Elektroninis paštas'  placeholder='Įveskite vartotojo el paštą' onChange={handleInputChange} />
+                    <Form.Input name='slaptazodis' label='Slaptažodis'  placeholder='Įveskite vartotojo slaptažodį' onChange={handleInputChange} />
                     <Form.Input name='vardas' label='Vardas'  placeholder='Įveskite vartotojo vardą' onChange={handleInputChange} />
                     <Form.Input name='pavarde' label='Pavardė' placeholder='Įveskite vartotojo pavardę' onChange={handleInputChange} />
                     <Form.Input name='asmens_Kodas' label='Asmens kodas' placeholder='Įveskite vartotojo asmens kodą' onChange={handleInputChange} />
                     <Form.Input name='gimimo_Data' label='Gimimo data' placeholder='Įveskite vartotojo gimimo datą' onChange={handleInputChange}/>
                     <Form.Input name='telefonas' label='Telefonas' placeholder='Įveskite vartotojo telefoną' onChange={handleInputChange}/>
                     <Form.Select label="Lytis" name="lytis" value={user.lytis} onChange={handleInputChange}>
-                        <option key="vyras" value="vyras"> Vyras </option>
-                        <option key="moteris" value="moteris"> Moteris </option>
+                    <option key="vyras" value="vyras"> Vyras </option>
+                    <option key="moteris" value="moteris"> Moteris </option>
                     </Form.Select>
-                        {user.tipas == 2 ? (
-                            <React.Fragment>
-                                <Form.Input name='laipsnis' label='Laipsnis'  placeholder='Įveskite vartotojo laipsni' onChange={handleInputChange} />
-                            </React.Fragment>
-                        ) : (<React.Fragment></React.Fragment>)}
+                {user.tipas == 2 ? (
+                    <React.Fragment>
+                    <Form.Input name='laipsnis' label='Laipsnis'  placeholder='Įveskite vartotojo laipsni' onChange={handleInputChange} />
+                    <Form.Select label="Specializacija" name="specializacijos_Kodas" value={user.specializacijos_Kodas} onChange={handleInputChange}>
+                    <option value="1"> Bendra </option>
+                    <option value="2"> Oftolmologas </option>
+                    <option value="3"> LOR </option>
+                    <option value="4"> Traumatologas </option>
+                    <option value="5"> Chirurgas </option>
+                    <option value="6"> Kardiologas </option>
+                    <option value="7"> Infektologas </option>
+                    <option value="8"> Dermatologas </option>
+                    <option value="9"> Odontologas </option>
+                    </Form.Select>
+                    </React.Fragment>
+                    ) : (<React.Fragment></React.Fragment>)}
 
-                        {user.tipas == 4 ? (
-                            <React.Fragment>
-                                <Form.Input name='ugis' label='Ugis'  placeholder='Įveskite vartotojo ugi' onChange={handleInputChange} />
-                            </React.Fragment>
-                        ) : (<React.Fragment></React.Fragment>)}
-                </Form>
+                {user.tipas == 4 ? (
+                    <React.Fragment>
+                    <Form.Input name='ugis' label='Ūgis'  placeholder='Įveskite vartotojo ūgį' onChange={handleInputChange} />
+                    <Form.Input name='mase' label='Mase'  placeholder='Įveskite vartotojo masę' onChange={handleInputChange} />
+                    <Form.Select label="Kraujo grupė" name="kraujo_grupe" value={user.kraujo_grupe} onChange={handleInputChange}>
+                    <option value="0"> 0 </option>
+                    <option value="A"> A </option>
+                    <option value="B"> B </option>
+                    <option value="AB"> AB </option>
+                    </Form.Select>
+                    <Form.Select label="Rezus" name="rezus" value={user.rezus} onChange={handleInputChange}>
+                    <option value="1"> + </option>
+                    <option value="0"> - </option>
+                    </Form.Select>
+                    </React.Fragment>
+                    ) : (<React.Fragment></React.Fragment>)}
+                    </Form>
                 )}
                 actions={[
                     { label:"Atšaukti", onClick:() => setShowModal(false) },
-                    { label:"Patvirtinti", color:"primary", onClick:() => submitForm() }
+                    { label:"Patvirtinti", color:"primary", onClick:() => submitForm()  }
                 ]}/>
         </React.Fragment>
     );
@@ -263,7 +457,7 @@ const UsersPage = () => {
 
 
 const fetchUsers = () =>
-    fetch("https://localhost:5001/vartotojas/getallusers")
+    fetch("https://localhost:44398/vartotojas/getallusers")
         .then(res => res.json())
         .then(data => {
             setUsers(data);
@@ -327,9 +521,9 @@ const fetchUsers = () =>
                                                 <Table.Col alignContent="right">
                                                     <Button.List>
                                                         <DetailsModal user={user}/>
-                                                        <RemoveModal user={user}/>
                                                         <DoctorModal user={user} users={users}/>
                                                         <EditModal user={user}/>
+                                                        <RemoveModal user={user}/>
 
                                                     </Button.List>
                                                 </Table.Col>
