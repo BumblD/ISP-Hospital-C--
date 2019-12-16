@@ -23,7 +23,19 @@ import {
   EditVisit,
   DetailsVisit,
   Users,
-  Healthcare
+  Healthcare,
+  Research,
+  Procedures,
+  Prescriptions,
+  Dispatch,
+  DetailsPrescription,
+  DetailsProcedure,
+  DetailsResearch,
+  DetailsDispatch,
+  NewPrescription,
+  NewResearch,
+  NewDispatch,
+  NewProcedure
 } from "./pages";
 
 import HomePage from "./HomePage.react";
@@ -81,6 +93,18 @@ function App(props) {
           <Route exact path="/DetailsVisit" component={DetailsVisit} />
           <Route exact path="/users" component={Users} />
           <Route exact path="/healthcare" component={Healthcare} />
+          <Route exact path="/research" component={Research} />
+          <Route exact path="/procedures" component={Procedures} />
+          <Route exact path="/prescriptions" component={Prescriptions} />
+          <Route exact path="/detailsdispatch" component={DetailsDispatch} />
+          <Route exact path="/detailsprescription" component={DetailsPrescription} />
+          <Route exact path="/detailsprocedure" component={DetailsProcedure} />
+          <Route exact path="/detailsresearch" component={DetailsResearch} />
+          <Route exact path="/newdispatch" component={NewDispatch} />
+          <Route exact path="/newprocedure" component={NewProcedure} />
+          <Route exact path="/newresearch" component={NewResearch} />
+          <Route exact path="/newprescription" component={NewPrescription} />
+          <Route exact path="/dispatch" component={Dispatch} />
           <Route component={Error404} />
         </Switch>
       </Router>
