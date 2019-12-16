@@ -8569,33 +8569,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Zygimantas\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {},
+    "C:\\Users\\Hikari\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
+      "projectUniqueName": "D:\\xampp\\htdocs\\IS\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
       "projectName": "HospitalBackEnd",
-      "projectPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
-      "packagesPath": "C:\\Users\\Zygimantas\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\obj\\",
+      "projectPath": "D:\\xampp\\htdocs\\IS\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
+      "packagesPath": "C:\\Users\\Hikari\\.nuget\\packages\\",
+      "outputPath": "D:\\xampp\\htdocs\\IS\\back-end\\HospitalBackEnd\\HospitalBackEnd\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Zygimantas\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\Hikari\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
