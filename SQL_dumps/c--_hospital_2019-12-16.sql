@@ -58,6 +58,29 @@ INSERT INTO `asmenine_info` (`asmens_kodas`, `vardas`, `pavarde`, `gimimo_data`,
 -- Table structure for table `grafikai`
 --
 
+--
+-- Table structure for table `patalpos_uzimtumas`
+--
+
+CREATE TABLE `patalpos_uzimtumas` (
+  `id` int(11) NOT NULL,
+  `pacientas_asmensk` decimal(20,0) DEFAULT NULL,
+  `patalpa_id` int(11) DEFAULT NULL,
+  `nuo` date DEFAULT NULL,
+  `iki` date DEFAULT NULL,
+  `proceduros_tipo_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_lithuanian_ci;
+
+--
+-- Dumping data for table `patalpos_uzimtumas`
+--
+
+INSERT INTO `patalpos_uzimtumas` (`id`, `pacientas_asmensk`, `patalpa_id`, `nuo`, `iki`, `proceduros_tipo_id`) VALUES
+(1, NULL, 103, '2019-12-12', '2019-12-14', NULL),
+(2, NULL, 103, '2019-12-12', '2019-12-14', NULL),
+(3, NULL, 103, '2019-12-12', '2019-12-14', NULL);
+
+
 CREATE TABLE `grafikai` (
   `id` int(11) NOT NULL,
   `data` date NOT NULL,
@@ -556,6 +579,14 @@ INSERT INTO `vizitai` (`id`, `data`, `laikas_val`, `laikas_min`, `nusiskundimas`
 -- Indexes for dumped tables
 --
 
+
+--
+-- Indexes for table `patalpos_uzimtumas`
+--
+ALTER TABLE `patalpos_uzimtumas`
+  ADD PRIMARY KEY (`id`);
+
+  
 --
 -- Indexes for table `asmenine_info`
 --
@@ -721,6 +752,15 @@ ALTER TABLE `vizitai`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+
+--
+-- AUTO_INCREMENT for table `patalpos_uzimtumas`
+--
+ALTER TABLE `patalpos_uzimtumas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
 
 --
 -- AUTO_INCREMENT for table `grafikai`
