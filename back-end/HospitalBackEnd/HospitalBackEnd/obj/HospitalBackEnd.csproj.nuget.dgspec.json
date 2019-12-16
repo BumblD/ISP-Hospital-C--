@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {}
+    "C:\\Users\\Dovydas\\Documents\\5_semestras\\Informaciniu_sistemu_pagrindai\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {
+    "C:\\Users\\Dovydas\\Documents\\5_semestras\\Informaciniu_sistemu_pagrindai\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
+        "projectUniqueName": "C:\\Users\\Dovydas\\Documents\\5_semestras\\Informaciniu_sistemu_pagrindai\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
         "projectName": "HospitalBackEnd",
-        "projectPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
-        "packagesPath": "C:\\Users\\Zygimantas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\obj\\",
+        "projectPath": "C:\\Users\\Dovydas\\Documents\\5_semestras\\Informaciniu_sistemu_pagrindai\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
+        "packagesPath": "C:\\Users\\Dovydas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dovydas\\Documents\\5_semestras\\Informaciniu_sistemu_pagrindai\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Zygimantas\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Dovydas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -76,24 +74,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.0.1, 3.0.1]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.0.1, 3.0.1]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[3.0.0, 3.0.0]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[3.0.0, 3.0.0]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -102,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
