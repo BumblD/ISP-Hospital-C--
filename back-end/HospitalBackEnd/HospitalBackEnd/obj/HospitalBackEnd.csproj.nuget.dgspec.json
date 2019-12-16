@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {}
+    "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital2\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {
+    "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital2\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
+        "projectUniqueName": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital2\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
         "projectName": "HospitalBackEnd",
-        "projectPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
+        "projectPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital2\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\HospitalBackEnd.csproj",
         "packagesPath": "C:\\Users\\Zygimantas\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\obj\\",
+        "outputPath": "C:\\Users\\Zygimantas\\Documents\\GitHub\\Hospital2\\ISP-Hospital-C--\\back-end\\HospitalBackEnd\\HospitalBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
