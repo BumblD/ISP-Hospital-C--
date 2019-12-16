@@ -29,12 +29,11 @@ namespace HospitalBackEnd
                     builder =>
                     {
                         builder
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                            .AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
                     });
             });
-
             services.AddControllersWithViews();
             services.AddTransient(_ => new AppDb(Configuration["ConnectionStrings:DefaultConnection"]));
         }
