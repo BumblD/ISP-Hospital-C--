@@ -131,6 +131,7 @@ C:\Users\Dovydas\Documents\5_semestras\Informaciniu_sistemu_pagrindai\ISP-Hospit
 C:\Users\Dovydas\Documents\5_semestras\Informaciniu_sistemu_pagrindai\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\obj\Debug\netcoreapp3.0\HospitalBackEnd.Views.pdb
 C:\Users\Dovydas\Documents\5_semestras\Informaciniu_sistemu_pagrindai\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\obj\Debug\netcoreapp3.0\HospitalBackEnd.dll
 C:\Users\Dovydas\Documents\5_semestras\Informaciniu_sistemu_pagrindai\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\obj\Debug\netcoreapp3.0\HospitalBackEnd.pdb
+<<<<<<< HEAD
 C:\Users\Zygimantas\Documents\GitHub\Hospital\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\bin\Debug\netcoreapp3.0\appsettings.Development.json
 C:\Users\Zygimantas\Documents\GitHub\Hospital\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\bin\Debug\netcoreapp3.0\appsettings.json
 C:\Users\Zygimantas\Documents\GitHub\Hospital\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
@@ -397,3 +398,5 @@ C:\Users\Zygimantas\Documents\GitHub\Hospital2\ISP-Hospital-C--\back-end\Hospita
 C:\Users\Zygimantas\Documents\GitHub\Hospital2\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\obj\Debug\netcoreapp3.0\HospitalBackEnd.csproj.CopyComplete
 C:\Users\Zygimantas\Documents\GitHub\Hospital2\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\obj\Debug\netcoreapp3.0\HospitalBackEnd.dll
 C:\Users\Zygimantas\Documents\GitHub\Hospital2\ISP-Hospital-C--\back-end\HospitalBackEnd\HospitalBackEnd\obj\Debug\netcoreapp3.0\HospitalBackEnd.pdb
+=======
+>>>>>>> e1d53e449a532be5633dc54697421c58e6ad1fb4
